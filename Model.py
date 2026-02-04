@@ -38,7 +38,7 @@ class Model:
     def fit(self, X, y):
         # standardization
         self.mean = X.mean(axis=0)
-        self.std = X.std(axis=0)
+        self.std = X.std(axis=0) + 1e-8
         Xs = self._standardize(X)
 
         # PCA
@@ -63,7 +63,8 @@ class Model:
             logits = Xp @ self.W + self.b
             probs = self._softmax(logits)
 
-            weighted_error = (probs - Y) * self.class_weights
+            sample_weights = self.class_weights[y]  # shape (n,)
+            weighted_error = (probs - Y) * sample_weights[:, np.newaxis]
             grad_W = (Xp.T @ weighted_error) / n + self.reg * self.W
             grad_b = weighted_error.mean(axis=0)
 
