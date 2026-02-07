@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from Model import Model
+from model import Model
 
 # loading  data
 train_df = pd.read_csv("train_df.csv")
