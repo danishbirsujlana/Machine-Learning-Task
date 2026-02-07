@@ -12,7 +12,7 @@ y_train = train_df["num_errors"].values
 X_test = test_df.drop(columns=["index"]).values
 
 # train
-model = Model(n_components=50,lr=0.05,epochs=600,reg=1e-3)
+model = Model(components=50,lr=0.05,epochs=600,reg=1e-3)
 
 model.fit(X_train, y_train)
 
